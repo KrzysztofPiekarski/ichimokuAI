@@ -6,11 +6,13 @@ from sklearn.linear_model import LogisticRegression
 from sklearn.ensemble import RandomForestClassifier, GradientBoostingClassifier
 from sklearn.preprocessing import StandardScaler, RobustScaler
 from sklearn.utils.class_weight import compute_class_weight
+from core.ichimoku import IchimokuFeatureExtractor
 import logging
 import warnings
 from typing import Dict, List, Optional, Union, Tuple, Any
 import joblib
 from pathlib import Path
+
 
 # Suppress sklearn warnings for cleaner output
 warnings.filterwarnings('ignore', category=UserWarning)
@@ -224,7 +226,7 @@ class IchimokuModel:
             df_work = df.copy()
             
             # Ensure numeric data types
-            numeric_columns = ['Open', 'High', 'Low', 'Close']
+            numeric_columns = ['Open', 'High', 'Low', 'Close', 'senkou_span_a', 'senkou_span_b']
             for col in numeric_columns:
                 df_work[col] = pd.to_numeric(df_work[col], errors='coerce')
             
